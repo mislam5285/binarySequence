@@ -11,11 +11,25 @@ def func(n, x, k):
                     result.add(suffix)
     return result
 
-def series(n,x,k):
-    lengthSeries=[]
-    for i in range(x,n+1):
-         lengthSeries.append( len(func(i,x,k)))
-    return lengthSeries
+def palindromic(n,x,k):
+    result=set()
+    numbers=func(n=n,x=x,k=k)
+    for number in numbers:
+        if number==number[::-1]:
+            result.add(number)
+    return result
+
+def series(n,x,k,palindrome=False):
+    if not palindrome:
+        lengthSeries=[]
+        for i in range(x,n+1):
+             lengthSeries.append( len(func(i,x,k)))
+        return lengthSeries
+    else:
+        lengthSeries=[]
+        for i in range(x,n+1):
+             lengthSeries.append( len(palindromic(i,x,k)))
+        return lengthSeries
 
 def diffSeries(series1):
     diffSerLen=[]
@@ -34,10 +48,12 @@ def pattern(lengthSeries):
 
 
 if __name__ == '__main__':
-    x = 8
-    k = 5
-    n = 16           #upto n
+    x = 3
+    k = 1
+    n = 8           #upto n
     print "n=", n, "x=", x, "k=", k
     lengthSeries=series(n,x,k)
     print lengthSeries
-    pattern(lengthSeries)
+    # pattern(lengthSeries)
+    palindromeSeries=series(n,x,k,palindrome=True)
+    print palindromeSeries
